@@ -3,7 +3,7 @@ import bodyParser, { json } from 'body-parser';
 import {v4 as uuidv4} from 'uuid';
 import { body, validationResult } from 'express-validator';
 const app = express();
-const PORT = 5000;
+const PORT = 3000;
 
 app.use(bodyParser.json());
 
@@ -31,7 +31,7 @@ res.send(items)
 })
 app.post('/items',(req,res)=>{
 
-res.send('requsted')
+res.send('items updated')
  
 const item = req.body; 
 items.push({...item, id:uuidv4()})
@@ -53,7 +53,7 @@ app.patch('/items/:id',(req,res)=>{
 
 const   {id} = req.params;
  const item = items.find((item)=> item.id === id
-
+ 
  )
 const {name,description} = req.body;
 if(description){
@@ -73,7 +73,7 @@ const {name, description} = req.body;
  
 item.name = name;
 item.description = description;
-
+ res.send('item updated')
 })
 
 
@@ -81,8 +81,10 @@ item.description = description;
 
 app.use((req, res) => {
   res.status(404).send('404: Page not found');
+  res.status(200).send('404: Page not found');
+  res.status(500).send('404: Page not found');
 });
 
 app.listen(PORT,()=>{
-    console.log('yay')
+    console.log('listening on port 3000')
 })
